@@ -3,12 +3,23 @@ import numpy as np
 import os
 import librosa
 import model
+import time
 from model import isSimilar
 
 st.title("Upload two audio files")
 
 audio1 = st.file_uploader("Upload audio first file",type = ["wav","mp3"])
 audio2 = st.file_uploader("Upload audio second file",type = ["wav","mp3"])
+progress_text = "Operation in progress. Please wait."
+my_bar = st.progress(0, text=progress_text)
+
+for percent_complete in range(100):
+    time.sleep(0.01)
+    my_bar.progress(percent_complete + 1, text=progress_text)
+time.sleep(1)
+my_bar.empty()
+
+st.button("Rerun")
 save = st.button("Save Audio File")
 
 os.makedirs("audio_data",exist_ok=True)
